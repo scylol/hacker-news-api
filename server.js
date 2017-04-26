@@ -48,7 +48,17 @@ app.get('/api/stories', (req, res) => {
 				.json(results);
 		});
 
-})
+});
+
+app.put('/api/stories/:postid', (req, res) => {
+	let id = req.params.postid;
+	knex('article')
+        .where('id', id)
+        .increment('votes', 1)
+        .then(() => {
+	res.status(204);
+});
+});
 
 let server;
 let knex;
