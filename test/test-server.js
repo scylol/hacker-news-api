@@ -31,8 +31,35 @@ describe('Hacker News API', function () {
   });
 
   describe('Starter Test Suite', function () {
-    it('should be true', function () {
-      true.should.be.true;
+    it('should list the top 20 stories sorted in descending order by votes', function () {
+      return chai.request(app)
+        .get('/api/stories')
+        .then(res => {
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('array');
+          res.body.length.should.equal(20);
+          const expectedKeys = ['title', 'url', 'votes'];
+          res.body.forEach(item => {
+            item.should.be.a('object');
+            item.should.include.keys(expectedKeys);
+          })
+        })
+    });
+    it('should list the top 20 stories sorted in descending order by votes', function () {
+      return chai.request(app)
+        .get('/api/stories')
+        .then(res => {
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('array');
+          res.body.length.should.equal(20);
+          const expectedKeys = ['title', 'url', 'votes'];
+          res.body.forEach(item => {
+            item.should.be.a('object');
+            item.should.include.keys(expectedKeys);
+          })
+        })
     });
   });
 
