@@ -50,13 +50,13 @@ app.get('/api/stories', (req, res) => {
 
 });
 
-app.put('/api/stories/:postid', (req, res) => {
-	let id = req.params.postid;
+app.put('/api/stories/:id', (req, res) => {
+	let {id} = req.params;
 	knex('article')
         .where('id', id)
-        .increment('votes', 1)
-        .then(() => {
-	res.status(204);
+        .increment('votes')
+        .then((results) => {
+	res.status(204).end();
 });
 });
 
